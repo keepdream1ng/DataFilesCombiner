@@ -1,4 +1,6 @@
-﻿namespace DataFilesCombiner.App;
+﻿using Microsoft.Extensions.Configuration;
+
+namespace DataFilesCombiner.App;
 
 partial class Form1
 {
@@ -28,17 +30,31 @@ partial class Form1
 	/// </summary>
 	private void InitializeComponent()
 	{
+		Input_btn = new Button();
 		SuspendLayout();
+		// 
+		// Input_btn
+		// 
+		Input_btn.Location = new Point(12, 12);
+		Input_btn.Name = "Input_btn";
+		Input_btn.Size = new Size(200, 30);
+		Input_btn.TabIndex = 0;
+		Input_btn.Text = "Open Input Folder";
+		Input_btn.UseVisualStyleBackColor = true;
+		Input_btn.Click += Input_btn_Click;
 		// 
 		// Form1
 		// 
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(501, 204);
+		ClientSize = new Size(434, 161);
+		Controls.Add(Input_btn);
 		Name = "Form1";
 		Text = "Form1";
 		ResumeLayout(false);
 	}
 
 	#endregion
+
+	private Button Input_btn;
 }
