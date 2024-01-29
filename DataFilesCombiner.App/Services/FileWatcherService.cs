@@ -1,4 +1,6 @@
-﻿using DataFileCombiner.ClassLibrary.Utility;
+﻿using DataFileCombiner.ClassLibrary.Mediatr.Notifications;
+using DataFileCombiner.ClassLibrary.Utility;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
@@ -10,13 +12,16 @@ public class FileWatcherService : IHostedService
 {
 	private FileSystemWatcher? _watcher;
 	private string _pathToWach;
+	private readonly IMediator _mediator;
 
-    public FileWatcherService(
-		IConfiguration configuration
+	public FileWatcherService(
+		IConfiguration configuration,
+		IMediator mediator
 		)
     {
 		_pathToWach = WorkingFolders.GetExistingFullPath(configuration["InputDirectoryPath"]);
-    }
+		_mediator = mediator;
+	}
 
     public Task StartAsync(CancellationToken cancellationToken)
 	{
@@ -51,32 +56,8 @@ public class FileWatcherService : IHostedService
 		}
 	}
 
-	private void NotifyAboutFile(object sender, FileSystemEventArgs e)
+	private async void NotifyAboutFile(object sender, FileSystemEventArgs e)
 	{
-		// Handle the file creation event
-		string filePath = e.FullPath;
-
-		do
-		{
-			Thread.Sleep(500);
-		} while (!HasReadAccess(filePath));
-
-		Console.WriteLine($"File {e.ChangeType.ToString()}: {filePath}");
+		await _mediator.Publish(new NewFileNotification(e));
 	}
-	private bool HasReadAccess(string filePath)
-	{
-		try
-		{
-			using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-			{
-				// If the file can be opened for reading, you have read access
-				return true;
-			}
-		}
-		catch (Exception)
-		{
-			return false;
-		}
-	}
-
 }
