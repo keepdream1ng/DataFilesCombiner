@@ -59,6 +59,6 @@ public class FileWatcherService : IHostedService
 
 	private async void NotifyAboutFile(object sender, FileSystemEventArgs e)
 	{
-		await _mediator.Publish(new NewFileNotification(e));
+		await _mediator.Publish<NewFileNotification>(new(e.FullPath));
 	}
 }

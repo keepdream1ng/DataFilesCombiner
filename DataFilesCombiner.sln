@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataFilesCombiner.App", "DataFilesCombiner.App\DataFilesCombiner.App.csproj", "{352B0476-04BD-4A88-ABA7-9077FA94AD10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataFilesCombiner.App", "DataFilesCombiner.App\DataFilesCombiner.App.csproj", "{352B0476-04BD-4A88-ABA7-9077FA94AD10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataFileCombiner.ClassLibrary", "DataFileCombiner.ClassLibrary\DataFileCombiner.ClassLibrary.csproj", "{B4C32C75-F40A-4BBE-A9D2-C2D7712A704C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataFileCombiner.ClassLibrary", "DataFileCombiner.ClassLibrary\DataFileCombiner.ClassLibrary.csproj", "{B4C32C75-F40A-4BBE-A9D2-C2D7712A704C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
