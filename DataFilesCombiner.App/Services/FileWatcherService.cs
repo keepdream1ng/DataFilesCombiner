@@ -38,7 +38,6 @@ public class FileWatcherService : IHostedService
 
 	private void StartFileWatcher()
 	{
-		Console.WriteLine($"Watching {_pathToWach}");
 		_watcher = new FileSystemWatcher();
 		_watcher.Path = _pathToWach;
 		_watcher.Created += NotifyAboutFile;

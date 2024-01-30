@@ -1,5 +1,6 @@
 using DataFileCombiner.ClassLibrary.Interfaces;
 using DataFileCombiner.ClassLibrary.Mediatr.Notifications;
+using DataFileCombiner.ClassLibrary.Services;
 using DataFilesCombiner.App.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,7 @@ internal static class Program
 	private static void ConfigureServices(HostBuilderContext hostContext, IServiceCollection services)
 	{
 		services.AddSingleton<IProcessedIdRepository, ProcessedIdRepository>();
+		services.AddSingleton<IMatchingDataService, MatchingDataService>();
 		services.AddSingleton<Form1>();
 		services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<NewFileNotification>());
 		services.AddHostedService<FileWatcherService>();
