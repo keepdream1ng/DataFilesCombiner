@@ -7,6 +7,6 @@ public interface IMatchingDataService
 
     event EventHandler? NewMatchesFound;
 
-    void CheckMatches();
-    IEnumerable<FilePath> GetMatchedFilesPaths();
+    Task CheckMatchesAsync();
+    FilePathsPerExtension GetMatchedFilesPaths();
 }

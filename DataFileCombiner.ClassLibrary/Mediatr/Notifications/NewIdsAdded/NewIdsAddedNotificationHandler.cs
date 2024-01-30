@@ -6,9 +6,8 @@ public class NewIdsAddedNotificationHandler(
 	IMatchingDataService dataService
 	) : INotificationHandler<NewIdsAddedNotification>
 {
-	public Task Handle(NewIdsAddedNotification notification, CancellationToken cancellationToken)
+	public async Task Handle(NewIdsAddedNotification notification, CancellationToken cancellationToken)
 	{
-		dataService.CheckMatches();
-		return Task.CompletedTask;
+		await dataService.CheckMatchesAsync();
 	}
 }

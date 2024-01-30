@@ -7,13 +7,14 @@ public class MatchingDataService : IMatchingDataService
 	public int CheckedMatchesCount { get; private set; } = 0;
 	public event EventHandler? NewMatchesFound;
 	private readonly IProcessedIdRepository _repository;
+	private readonly object _locker = new object();
 
 	public MatchingDataService(IProcessedIdRepository repository)
 	{
 		_repository = repository;
 	}
 
-	public void CheckMatches()
+	public async Task CheckMatchesAsync()
 	{
 		int matchedRecorsCount = (from IdXml_cards in _repository.IdXml
 								  join IdCsv_users in _repository.IdCsv on IdXml_cards.UserId equals IdCsv_users.UserId
@@ -21,14 +22,35 @@ public class MatchingDataService : IMatchingDataService
 
 		if (matchedRecorsCount != CheckedMatchesCount)
 		{
-			CheckedMatchesCount = matchedRecorsCount;
-			OnNewMathesFound();
+			await UpdateCount(matchedRecorsCount);
 		}
 	}
 
-	public IEnumerable<FilePath> GetMatchedFilesPaths()
+	public FilePathsPerExtension GetMatchedFilesPaths()
 	{
-		throw new NotImplementedException();
+		var matches = from IdXml_cards in _repository.IdXml
+					  join IdCsv_users in _repository.IdCsv on IdXml_cards.UserId equals IdCsv_users.UserId
+					  select new
+					  {
+						  Xmlpath = IdXml_cards.FilePath,
+						  CsvPath = IdCsv_users.FilePath,
+					  };
+		return new FilePathsPerExtension(
+			matches.Select(m => m.CsvPath).Distinct().ToArray(),
+			matches.Select(m => m.Xmlpath).Distinct().ToArray()
+			);
+	}
+
+	private async Task UpdateCount(int count)
+	{
+		await Task.Run(() =>
+		{
+			lock (_locker)
+			{
+				CheckedMatchesCount = count;
+				OnNewMathesFound();
+			}
+		});
 	}
 
 	private void OnNewMathesFound()
