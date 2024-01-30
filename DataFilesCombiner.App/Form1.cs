@@ -19,4 +19,9 @@ public partial class Form1 : Form
 	{
 		Process.Start("explorer.exe", _configuration.GetInputDirectoryExistingPath());
 	}
+
+	private void Output_btn_Click(object sender, EventArgs e)
+	{
+		Process.Start("explorer.exe", _configuration.GetOutputDirectoryExistingPath());
+	}
 }

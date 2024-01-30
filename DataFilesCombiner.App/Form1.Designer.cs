@@ -31,6 +31,7 @@ partial class Form1
 	private void InitializeComponent()
 	{
 		Input_btn = new Button();
+		Output_btn = new Button();
 		SuspendLayout();
 		// 
 		// Input_btn
@@ -43,11 +44,22 @@ partial class Form1
 		Input_btn.UseVisualStyleBackColor = true;
 		Input_btn.Click += Input_btn_Click;
 		// 
+		// Output_btn
+		// 
+		Output_btn.Location = new Point(222, 12);
+		Output_btn.Name = "Output_btn";
+		Output_btn.Size = new Size(200, 30);
+		Output_btn.TabIndex = 1;
+		Output_btn.Text = "Open Output Folder";
+		Output_btn.UseVisualStyleBackColor = true;
+		Output_btn.Click += Output_btn_Click;
+		// 
 		// Form1
 		// 
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(434, 161);
+		Controls.Add(Output_btn);
 		Controls.Add(Input_btn);
 		Name = "Form1";
 		Text = "Form1";
@@ -57,4 +69,5 @@ partial class Form1
 	#endregion
 
 	private Button Input_btn;
+	private Button Output_btn;
 }
