@@ -1,5 +1,6 @@
 ﻿using DataFileCombiner.ClassLibrary.Mediatr.Notifications;
 using DataFileCombiner.ClassLibrary.Utility;
+using DataFilesCombiner.ClassLibrary.ExtensionMethods;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -19,7 +20,7 @@ public class FileWatcherService : IHostedService
 		IMediator mediator
 		)
     {
-		_pathToWach = WorkingFolders.GetExistingFullPath(configuration["InputDirectoryPath"]);
+		_pathToWach = configuration.GetInputDirectoryExistingPath();
 		_mediator = mediator;
 	}
 

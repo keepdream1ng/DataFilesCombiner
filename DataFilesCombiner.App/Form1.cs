@@ -1,4 +1,5 @@
 using DataFileCombiner.ClassLibrary.Utility;
+using DataFilesCombiner.ClassLibrary.ExtensionMethods;
 using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 
@@ -16,6 +17,6 @@ public partial class Form1 : Form
 
 	private void Input_btn_Click(object sender, EventArgs e)
 	{
-		Process.Start("explorer.exe", WorkingFolders.GetExistingFullPath(_configuration["InputDirectoryPath"]));
+		Process.Start("explorer.exe", _configuration.GetInputDirectoryExistingPath());
 	}
 }

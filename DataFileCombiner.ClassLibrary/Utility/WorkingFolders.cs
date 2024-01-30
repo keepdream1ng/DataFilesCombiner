@@ -14,4 +14,19 @@ public static class WorkingFolders
 		}
 		return dirInfo.FullName;
 	}
+	public static bool HasReadAccess(string filePath)
+	{
+		try
+		{
+			using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+			{
+				// If the file can be opened for reading, you have read access
+				return true;
+			}
+		}
+		catch (Exception)
+		{
+			return false;
+		}
+	}
 }
