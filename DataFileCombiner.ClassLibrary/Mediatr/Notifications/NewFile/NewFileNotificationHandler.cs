@@ -2,11 +2,13 @@
 using DataFileCombiner.ClassLibrary.Utility;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace DataFileCombiner.ClassLibrary.Mediatr.Notifications;
 internal class NewFileNotificationHandler(
 	IConfiguration configuration,
-	IMediator mediator
+	IMediator mediator,
+	ILogger<NewFileNotification> logger
 	) : INotificationHandler<NewFileNotification>
 {
 	private readonly int _fileCheckTimeout = configuration.GetValue<int>("FileCheckTimeoutMs");
@@ -22,6 +24,7 @@ internal class NewFileNotificationHandler(
 			Thread.Sleep(_fileCheckTimeout);
 			if (--fileCheckAttemptsLeft < 0)
 			{
+				logger.LogError("Failed to read file {@Path}", filePath.Path);
 				return Task.CompletedTask; 
 			}
 		} while (!WorkingFolders.HasReadAccess(filePath.Path));

@@ -1,5 +1,6 @@
 ﻿using DataFileCombiner.ClassLibrary.Interfaces;
 using DataFileCombiner.ClassLibrary.Models;
+using Microsoft.Extensions.Logging;
 
 namespace DataFileCombiner.ClassLibrary.Services;
 public class MatchingDataService : IMatchingDataService
@@ -7,11 +8,16 @@ public class MatchingDataService : IMatchingDataService
 	public int CheckedMatchesCount { get; private set; } = 0;
 	public event EventHandler? NewMatchesFound;
 	private readonly IProcessedIdRepository _repository;
+	private readonly ILogger<MatchingDataService> _logger;
 	private readonly object _locker = new object();
 
-	public MatchingDataService(IProcessedIdRepository repository)
+	public MatchingDataService(
+		IProcessedIdRepository repository,
+		ILogger<MatchingDataService> logger
+		)
 	{
 		_repository = repository;
+		_logger = logger;
 	}
 
 	public async Task CheckMatchesAsync()
@@ -55,6 +61,13 @@ public class MatchingDataService : IMatchingDataService
 
 	private void OnNewMathesFound()
 	{
+        if (_logger.IsEnabled(LogLevel.Information))
+        {
+            _logger.LogInformation(
+                "New matches found, new count is {@Matches} {@DateTimeUtc}",
+                CheckedMatchesCount,
+                DateTime.UtcNow);
+        }
 		NewMatchesFound?.Invoke(this, new EventArgs());
 	}
 }
