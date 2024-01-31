@@ -35,4 +35,25 @@ public class ProcessedIdRepository : IProcessedIdRepository
 			}
 		});
 	}
+
+	public async Task Reset()
+	{
+		List<Task> tasks = new();
+		tasks.Add(Task.Run(() =>
+		{
+			lock (_idXmlLock)
+			{
+				_idXml.Clear();
+			}
+		}));
+
+		tasks.Add(Task.Run(() =>
+		{
+			lock (_idCsvLock)
+			{
+				_idCsv.Clear();
+			}
+		}));
+		await Task.WhenAll(tasks);
+	}
 }

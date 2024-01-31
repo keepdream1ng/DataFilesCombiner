@@ -35,13 +35,14 @@ partial class Form1
 		Matches_Lable = new Label();
 		Generate_Rpt_Btn = new Button();
 		Info_Label = new Label();
+		Reset_Btn = new Button();
 		SuspendLayout();
 		// 
 		// Input_btn
 		// 
 		Input_btn.Location = new Point(12, 35);
 		Input_btn.Name = "Input_btn";
-		Input_btn.Size = new Size(200, 30);
+		Input_btn.Size = new Size(130, 30);
 		Input_btn.TabIndex = 0;
 		Input_btn.Text = "Open Input Folder";
 		Input_btn.UseVisualStyleBackColor = true;
@@ -49,9 +50,9 @@ partial class Form1
 		// 
 		// Output_btn
 		// 
-		Output_btn.Location = new Point(222, 35);
+		Output_btn.Location = new Point(292, 35);
 		Output_btn.Name = "Output_btn";
-		Output_btn.Size = new Size(200, 30);
+		Output_btn.Size = new Size(130, 30);
 		Output_btn.TabIndex = 1;
 		Output_btn.Text = "Open Output Folder";
 		Output_btn.UseVisualStyleBackColor = true;
@@ -88,11 +89,22 @@ partial class Form1
 		Info_Label.TabIndex = 4;
 		Info_Label.Text = "Copy data files in the input folder to start";
 		// 
+		// Reset_Btn
+		// 
+		Reset_Btn.Location = new Point(152, 35);
+		Reset_Btn.Name = "Reset_Btn";
+		Reset_Btn.Size = new Size(130, 30);
+		Reset_Btn.TabIndex = 5;
+		Reset_Btn.Text = "Reset App";
+		Reset_Btn.UseVisualStyleBackColor = true;
+		Reset_Btn.Click += Reset_Btn_Click;
+		// 
 		// Form1
 		// 
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(434, 131);
+		Controls.Add(Reset_Btn);
 		Controls.Add(Info_Label);
 		Controls.Add(Generate_Rpt_Btn);
 		Controls.Add(Matches_Lable);
@@ -111,4 +123,5 @@ partial class Form1
 	private Label Matches_Lable;
 	private Button Generate_Rpt_Btn;
 	private Label Info_Label;
+	private Button Reset_Btn;
 }

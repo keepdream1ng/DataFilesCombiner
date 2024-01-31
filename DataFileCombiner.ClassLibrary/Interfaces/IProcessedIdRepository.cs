@@ -11,4 +11,5 @@ public interface IProcessedIdRepository
 
 	Task AddRangeAsync(IEnumerable<IdFromCsv> ids);
 	Task AddRangeAsync(IEnumerable<IdFromXml> ids);
+	Task Reset();
 }

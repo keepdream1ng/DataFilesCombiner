@@ -53,6 +53,18 @@ public partial class Form1 : Form
 			Output_btn_Click(sender, new EventArgs());
 		}
 	}
+
+	private async void Reset_Btn_Click(object sender, EventArgs e)
+	{
+		Reset_Btn.Enabled = false;
+		var resetResult = await _mediator.Send(new ResetAndRereadFilesCommand());
+		if (resetResult.IsFailure)
+		{
+			MessageBox.Show("Something wrong happend. Better check logs.");
+		}
+		Reset_Btn.Enabled = true;
+	}
+
 	private void OnNewMatchesFound(object sender, EventArgs e)
 	{
 		// Need to run this on UI thread.
